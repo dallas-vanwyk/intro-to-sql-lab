@@ -1,17 +1,64 @@
+-- Intro to SQL lab
+-- Dallas Van Wyk
+-- due 2025-05-19
+
+
+-- Connect to database 'world'
+\c world
+
+-- SEE WHAT WE'RE DEALING WITH HERE
+-- /dt
+
+-- what columns are in the countries table?
+-- SELECT * FROM countries;
+
+-- what columns are in the cities table?
+-- SELECT * FROM cities;
+
+-- what columns are in the countrylanguages table?
+-- SELECT * FROM countrylanguages;
+
+
+
+
 -- Clue #1: We recently got word that someone fitting Carmen Sandiego's description has been traveling through Southern Europe. She's most likely traveling someplace where she won't be noticed, so find the least populated country in Southern Europe, and we'll start looking for her there.
  
 -- Write SQL query here
+-- SELECT name, continent, region FROM countries WHERE continent = 'Europe';
+SELECT name, continent, region, population FROM countries
+WHERE region = 'Southern Europe'
+ORDER BY population;
 
+-- Vatican City is the least populous country in southern Europe
 
 
 -- Clue #2: Now that we're here, we have insight that Carmen was seen attending language classes in this country's officially recognized language. Check our databases and find out what language is spoken in this country, so we can call in a translator to work with you.
 
 -- Write SQL query here
+SELECT code, name FROM countries
+WHERE name = 'Holy See (Vatican City State)';
+
+SELECT countrycode, language, isofficial FROM countrylanguages
+WHERE countrycode = 'VAT';
+
+-- Italian is the official language of the Vatican
 
 
 -- Clue #3: We have new news on the classes Carmen attended – our gumshoes tell us she's moved on to a different country, a country where people speak only the language she was learning. Find out which nearby country speaks nothing but that language.
 
 -- Write SQL query here
+
+SELECT countrycode, language, percentage FROM countrylanguages
+WHERE language = 'Italian'
+ORDER BY percentage DESC;
+
+-- country SMR speaks 100% Italian
+
+SELECT code, name FROM countries
+WHERE code = 'SMR';
+
+-- SMR = San Marino
+
 
 
 -- Clue #4: We're booking the first flight out – maybe we've actually got a chance to catch her this time. There are only two cities she could be flying to in the country. One is named the same as the country – that would be too obvious. We're following our gut on this one; find out what other city in that country she might be flying to.
