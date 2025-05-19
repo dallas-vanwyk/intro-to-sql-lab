@@ -88,15 +88,22 @@ WHERE countrycode = 'SMR';
 -- Clue #5: Oh no, she pulled a switch – there are two cities with very similar names, but in totally different parts of the globe! She's headed to South America as we speak; go find a city whose name is like the one we were headed to, but doesn't end the same. Find out the city, and do another search for what country it's in. Hurry!
 
 -- Write SQL query here
-SELECT cities.* from cities
-WHERE name like 'Serra%';
+-- SELECT * from cities
+-- WHERE name like 'Serra%';
 
 -- the city is Sierra, country code BRA
 
-SELECT code, name FROM countries
-WHERE code = 'BRA';
+-- SELECT code, name FROM countries
+-- WHERE code = 'BRA';
 
 -- the country is Brazil
+
+-- use JOIN to do it in one step
+
+SELECT cities.*, countries.name
+FROM cities
+JOIN countries on cities.countrycode = countries.code
+WHERE cities.name like 'Serra%';
 
 
 
@@ -107,15 +114,23 @@ WHERE code = 'BRA';
 
 -- Write SQL query here
 
-SELECT code, name, capital FROM countries
-where code = 'BRA';
+-- SELECT code, name, capital FROM countries
+-- WHERE code = 'BRA';
 
 -- Brazil's capital is city 211
 
-SELECT * FROM cities
-WHERE id = 211;
+-- SELECT * FROM cities
+-- WHERE id = 211;
 
 -- city 211 is Brasília
+
+-- do it in one step with JOIN
+SELECT countries.code, countries.name, countries.capital, cities.name
+FROM countries
+JOIN cities on countries.capital = cities.id
+WHERE countries.code = 'BRA';
+-- AND countries.capital = cities.id;
+
 
 
 
