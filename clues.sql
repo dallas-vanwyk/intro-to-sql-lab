@@ -49,16 +49,27 @@ WHERE countrycode = 'VAT';
 
 -- Write SQL query here
 
-SELECT countrycode, language, percentage FROM countrylanguages
-WHERE language = 'Italian'
-ORDER BY percentage DESC;
+-- SELECT countrycode, language, percentage FROM countrylanguages
+-- WHERE language = 'Italian'
+-- ORDER BY percentage DESC;
 
 -- country SMR speaks 100% Italian
 
-SELECT code, name FROM countries
-WHERE code = 'SMR';
+-- SELECT code, name FROM countries
+-- WHERE code = 'SMR';
 
 -- SMR = San Marino
+
+-- use JOIN to do it in one step:
+
+SELECT countrylanguages.language, countrylanguages.percentage, countries.name
+FROM countrylanguages
+JOIN countries on countrylanguages.countrycode = countries.code
+WHERE language = 'Italian'
+AND percentage = 100;
+
+
+
 
 
 
@@ -77,7 +88,7 @@ WHERE countrycode = 'SMR';
 -- Clue #5: Oh no, she pulled a switch – there are two cities with very similar names, but in totally different parts of the globe! She's headed to South America as we speak; go find a city whose name is like the one we were headed to, but doesn't end the same. Find out the city, and do another search for what country it's in. Hurry!
 
 -- Write SQL query here
-SELECT * from cities
+SELECT cities.* from cities
 WHERE name like 'Serra%';
 
 -- the city is Sierra, country code BRA
